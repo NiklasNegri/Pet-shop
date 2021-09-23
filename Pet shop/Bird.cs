@@ -9,9 +9,12 @@ namespace Pet_shop
     /// </summary>
     public class Bird : Animal
     {      
-        public bool CanFly { get; private set; }
-        public double WingSpan { get; private set; }
-        public string BirdBreed { get; private set; }
+        // I set the properties of all subclasses of animal to private since I dont need to 
+        // access or print the values directly from the subclass
+        // instead I print the values of the properties through the ToString method
+        private bool CanFly { get; set; }
+        private double WingSpan { get; set; }
+        private string BirdBreed { get; set; }
         /// <summary>
         /// When generating a new object of Bird, the inherited property AnimalSpecies will always be set to "Bird".
         /// The rest have to be passed in on creation. </summary>
@@ -23,6 +26,10 @@ namespace Pet_shop
             CanFly = _canFly;
             WingSpan = _wingSpan;
             BirdBreed = _birdBreed;
+        }
+        public override string ToString()
+        {
+            return base.ToString() + string.Format($"Bird breed: { BirdBreed }, wing span: { WingSpan }, can fly: { CanFly }\n");
         }
     }
 }

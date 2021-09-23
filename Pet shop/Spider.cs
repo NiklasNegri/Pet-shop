@@ -9,9 +9,12 @@ namespace Pet_shop
     /// </summary>
     public class Spider : Animal
     {
-        public bool IsPoisonous { get; private set; }
-        public int AmountEyes { get; private set; }
-        public string SpiderSpecies { get; private set; }
+        // I set the properties of all subclasses of animal to private since I dont need to 
+        // access or print the values directly from the subclass
+        // instead I print the values of the properties through the ToString method
+        private bool IsPoisonous { get; set; }
+        private int AmountEyes { get; set; }
+        private string SpiderSpecies { get; set; }
         /// <summary>
         /// When generating a new object of Spider, the inherited property AnimalSpecies will always be set to "Spider".
         /// The rest have to be passed in on creation. </summary>
@@ -23,6 +26,10 @@ namespace Pet_shop
             IsPoisonous = _isPoisonous;
             AmountEyes = _amountEyes;
             SpiderSpecies = _spiderSpecies;
+        }
+        public override string ToString()
+        {
+            return base.ToString() + string.Format($"Spider species: { SpiderSpecies }, amount of eyes: { AmountEyes }, is poisonous: { IsPoisonous }\n");
         }
     }  
 }

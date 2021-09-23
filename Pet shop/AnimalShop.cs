@@ -11,19 +11,29 @@ namespace Pet_shop
     {
         // I put these properties to public since I want to access the values from outside the class
         // however I dont want to change the values outside of the class so I set the setter to private
-        private double shopMoney;
-        private List<Animal> animalList;
+        public double ShopMoney { get; private set; }
+        public List<Animal> animalList { get; private set; }
         /// <summary>
-        /// The default constructor of AnimalShop creates an object of each Animal subclass 
-        /// and adds them to its animalList, also assigns value to ShopMoney. </summary>
+        /// The default constructor of AnimalShop creates an instance of the animalList list
+        /// and sets the value of ShopMoney to 0. </summary>
         public AnimalShop()
         {
-            shopMoney = 0;
+            ShopMoney = 0;
             animalList = new List<Animal>();
-            animalList.Add(new Bird("Bert", 10, 150.50, false, 12.5, "Havsörn"));
-            animalList.Add(new Dog("Fido", 7, 200, true, "Chihuahua"));
-            animalList.Add(new Spider("Aragog", 105, 1050, true, 12, "Giant Arachnid"));
         }
+        /// <summary>
+        /// This constructor of AnimalShop takes a double as a parameter and lets the user
+        /// decide the value of ShopMoney when instancing an object of this class
+        /// </summary>
+        public AnimalShop(double _shopMoney)
+        {
+            ShopMoney = _shopMoney;
+            animalList = new List<Animal>();
+        }
+        /// <summary>
+        /// The method SellAnimal takes a string as a parameter and looks for a subclass of Animal with the
+        /// same name as the string and returns that Animal if found, else returns null
+        /// </summary>
         public Animal SellAnimal(string animalType)
         {
             Animal sellAnimal = null;
@@ -32,11 +42,13 @@ namespace Pet_shop
                 if (animal.GetType().Name == animalType)
                 {
                     ShopMoney += animal.AnimalPrice;
-                    Console.WriteLine(
-                        $"{ animal } found!\n" +
-                        $"Purchasing { animal } for { animal.AnimalPrice }");
+                    Console.WriteLine($"Purchasing { animal.GetType().Name } for { animal.AnimalPrice }");
                     sellAnimal = animal;
                 }
+            }
+            if (sellAnimal == null)
+            {
+                Console.WriteLine("Shop does not have that animal for sale!\n");
             }
             return sellAnimal;
         }
